@@ -14,7 +14,7 @@ spring:
 #        format_sql: true
 
 chatgpt:
-  api-key: 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
+  api-key: changeTest
 
 logging.level:
   org.hibernate.SQL: debug
