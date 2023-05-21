@@ -82,6 +82,7 @@
 
 
 
+
 ### 엔티티 구조
 ![](src/main/resources/readme/entity.png)
 
@@ -115,23 +116,24 @@
 
 ### 트러블 슈팅
 #### 가상친구가 사용자와 나눈 이전 대화 내용을 기억하지 못함
-- Before![](src/main/resources/readme/memoryissue/1.before.png)
-  - 바로 직전에 전달한 사용자의 이름도 제대로 기억하지 못함  
-- After ![](src/main/resources/readme/memoryissue/2.after.png)
-  - 사용자와 가상친구와의 대화내용을 모두 데이터베이스에 저장
-  - memberId와 friendId값으로 데이터베이스에 저장된 모든 대화 내용을 다 조회하여 ChatGPT에 api 요청시 함께 전달  
-  - 이에 이전 대화 내용을 모두 다 기억하여 이에 맞는 적절한 응답을 생성하게 됨.
+Before![](src/main/resources/readme/memoryissue/1.before.png)
+- 바로 직전에 전달한 사용자의 이름도 제대로 기억하지 못함 
+ 
+After ![](src/main/resources/readme/memoryissue/2.after.png)
+- 사용자와 가상친구와의 대화내용을 모두 데이터베이스에 저장
+- memberId와 friendId값으로 데이터베이스에 저장된 모든 대화 내용을 다 조회하여 ChatGPT에 api 요청시 함께 전달  
+- 이에 이전 대화 내용을 모두 다 기억하여 이에 맞는 적절한 응답을 생성하게 됨.
 
 #### 응답 메시지 생성이 즉각적이지 않아 발생하는 사용자 경험 저하
-- Before ![](src/main/resources/readme/responsedelay/before.gif)
-  - 메시지 전송 이후 화면에 즉각적인 반응이 나타나지 않음.
-  - post 요청 후 ChatGPT가 메시지를 생성하여 리다이렉트 응답을 전송 하는데까지의 시간이 필요.
-  - 메시지 전송이 제대로 된건지 안된건지 의심이 생겨 사용자 경험이 급격히 저하됨.
-- After ![](src/main/resources/readme/responsedelay/after.gif)
-  - 메시지를 전송하자마자 작성한 메시지가 채팅장으로 보여지고, 입력창과 메시지 제출기능이 비활성화됨.
-  - 1초 뒤 '가상친구'가 메시지를 타이핑 하고 있음을 암시하는 애니메이션을 보여줌.
-  - 서버에서 보낸 리다이렉트 응답이 도착하여 메시지가 나타남.
-  - 즉 서버에서 로직을 처리하는 동안 뷰에서 단계별 화면 처리를 하여 사용자 경험을 향상
+Before ![](src/main/resources/readme/responsedelay/before.gif)
+- 메시지 전송 이후 화면에 즉각적인 반응이 나타나지 않음.
+- post 요청 후 ChatGPT가 메시지를 생성하여 리다이렉트 응답을 전송 하는데까지의 시간이 필요.
+- 메시지 전송이 제대로 된건지 안된건지 의심이 생겨 사용자 경험이 급격히 저하됨.
+After ![](src/main/resources/readme/responsedelay/after.gif)
+- 메시지를 전송하자마자 작성한 메시지가 채팅장으로 보여지고, 입력창과 메시지 제출기능이 비활성화됨.
+- 1초 뒤 '가상친구'가 메시지를 타이핑 하고 있음을 암시하는 애니메이션을 보여줌.
+- 서버에서 보낸 리다이렉트 응답이 도착하여 메시지가 나타남.
+- 즉 서버에서 로직을 처리하는 동안 뷰에서 단계별 화면 처리를 하여 사용자 경험을 향상
 
 
 --------------------------
