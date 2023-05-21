@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MyVers</title>
+    <link href="/css/friend.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="delete-card">
+    <div class="card2">
+        <h2 th:text="${name}">JENNY</h2>
+        <a th:href="@{/chat/{id1}/{id2}(id1 = ${memberId}, id2 = ${friendId})}">
+            <img class="friend-image" th:src="${imageName}" alt="">
+        </a>
+        <div style="margin-top: 10px;" th:text="${warning[0]}"}>주의!!</div>
+        <div style="margin-top: 10px;" th:text="${warning[1]}"}>주의!!</div>
+        <div style="margin-top: 10px;">
+            <form method="post" th:object="${friendDeleteForm}">
+                <div>
+                    <input class="delete-input" placeholder="password" type="password" th:field="*{password}" th:class="${#fields.hasErrors('password')} ? 'fieldError' : ' '">
+                </div>
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect date</p>
+                <div th:if="${#fields.hasGlobalErrors()}">
+                    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+                </div>
+                <div style="margin-bottom: 10px;"></div>
+                <button class="btn7" type="submit">삭제하기</button>
+                <a th:href="@{/friend/{id1}(id1 = ${memberId})}">
+                    <button class="btn7" type="button">취소하기</button>
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

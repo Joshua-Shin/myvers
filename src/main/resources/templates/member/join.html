@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MyVers</title>
+    <link href="/css/member.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="login">
+        <div class="title">
+            <h1><a href="/">MyVers</a></h1>
+        </div>
+        <form action="/member/new" th:object="${memberForm}" method="post">
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+            </div>
+            <div class="login-input">
+                <label th:for="loginId">아이디 (6글자~16글자 & 영문 & 숫자)</label>
+                <input type="text" placeholder="abcd1234" th:field="*{loginId}" th:class="${#fields.hasErrors('loginId')} ? 'fieldError' : ' '">
+                <p th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}">Incorrect date</p>
+            </div>
+            <div class="login-input">
+               <label th:for="password">비밀번호 (8글자~16글자)</label>
+                <input type="password" placeholder="********" th:field="*{password}" th:class="${#fields.hasErrors('password')} ? 'fieldError' : ' '">
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect date</p>
+            </div>
+            <div class="login-input">
+               <label th:for="confirmPassword">비밀번호 확인 (8글자~16글자)</label>
+                <input type="password" placeholder="********" th:field="*{confirmPassword}" th:class="${#fields.hasErrors('confirmPassword')} ? 'fieldError' : ' '">
+                <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Incorrect date</p>
+            </div>
+            <div class="login-input">
+               <label th:for="name">이름 (2글자~6글자)</label>
+                <input type="text" placeholder="길동" th:field="*{name}" th:class="${#fields.hasErrors('name')} ? 'fieldError' : ' '">
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
+            </div>
+            <div class="login-input">
+               <label th:for="email">이메일</label>
+                <input type="email" placeholder="abcd1234@gmail.com" th:field="*{email}" th:class="${#fields.hasErrors('email')} ? 'fieldError' : ' '">
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect date</p>
+            </div>
+            <div style="display:flex; justify-content: flex-end;" >
+                <div class="login-input">
+                    <button type="submit" class="btn7">회원가입</button>
+                </div>
+                <div class="login-input">
+                    <a th:href="@{/login}">
+                        <button class="btn7" type="button">취소하기</button>
+                    </a>
+                </div>
+            </div>
+<!--
+            <div class="login-input">
+                <button type="submit">취소</button>
+            </div>
+-->
+        </form>
+        <div style="clear:both;"></div>
+    </div>
+</body>
+
+</html>

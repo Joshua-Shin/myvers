@@ -1,0 +1,244 @@
+body {
+    margin: 0px;
+}
+div {
+    box-sizing: border-box;
+}
+.fieldError {
+    border-color: #bd2130;
+}
+.logout-div {
+    display: flex;
+    justify-content:flex-end;
+    padding: 5px;
+    padding-bottom: 5px;
+}
+.btn-logout {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #FFBFA9;
+    border-radius: 3px;
+    color: #222222;
+}
+.btn-logout:hover {
+    background-color: #FFBFA9;
+}
+.btn-logout:active {
+    background-color: #FFACAC;
+}
+
+.card-list {
+    width: 80%;
+    margin: auto;
+    margin-top: 0px;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap : wrap;
+    justify-content:flex-start;
+}
+
+.card {
+    width: 23%;
+    text-align: center;
+    border: solid 1px #FFACAC;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+.card2 {
+    width: 30%;
+    text-align: center;
+    border: solid 1px #FFACAC;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+.card-complete {
+    width: 100%;
+    text-align: center;
+    border: solid 1px #FFACAC;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+.card-complete2 {
+    width: 100%;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+.card h2 {
+    color: #FFACAC;
+    margin-top: 0px;
+}
+.btn-delete-p {
+    text-align:left;
+    margin-top: 0px;
+}
+.btn-delete {
+    padding: 5px;
+    background-color: white;
+    border: none;
+    color: #FFBFA9;
+}
+.card-content {
+    padding: 10px;
+    padding-top: 0px;
+}
+
+.friend-image {
+    width: 80%;
+/*    height: 100px;*/
+    border-radius: 50%;
+}
+.delete-input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #FFBFA9;
+    margin-bottom: 10px;
+}
+.btn7 {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #FFBFA9;
+    border-radius: 3px;
+    color: #222222;
+}
+.btn7:hover {
+    background-color: #FFBFA9;
+}
+.btn7:active {
+    background-color: #FFACAC;
+}
+/*
+#FFACAC
+#FFBFA9
+#FFEBB4
+#FBFFB1
+*/
+
+.title {
+    text-align: center;
+    color: #FFBFA9;
+}
+
+.login {
+    width: 400px;
+    border: solid 1px #FFBFA9;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #FFBFA9;
+    
+}
+
+
+.login-input {
+    margin: 5px;
+}
+.login-input-trans {
+    margin: 5px;
+    display: flex;
+}
+
+
+.btn {
+    padding: 5px;
+    float: right;
+    background-color: white;
+    border: 1px solid #FFBFA9;
+    border-radius: 3px;
+    color: #222222;
+}
+.btn2 {
+    padding: 5px;
+    background-color: white;
+    border: 1px solid #FFBFA9;
+    border-radius: 3px;
+    color: #222222;
+}
+.btn3 {
+    width: 100px;
+    margin-top: 20px;
+    padding: 5px;
+    font-size: 15px;
+    background-color: white;
+    border: 1px solid #FFBFA9;
+    border-radius: 3px;
+    color: #222222;
+}
+.btn:hover {
+    background-color: #FFBFA9;
+}
+.btn:active {
+    background-color: #FFACAC;
+}
+
+.login-bottom {
+    display: flex;
+    justify-content: center;
+}
+.login-bottom div{
+    margin: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: #FFBFA9;
+}
+a:visited {
+    text-decoration: none;
+    color: #FFACAC;
+}
+
+label {
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+.tranComplete {
+    text-align: center;
+}
+
+.transbtn {
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+/*    padding: auto;*/
+/*    margin: auto;*/
+/*    justify-content: center;*/
+}
+
+.opt {
+    padding: 5px;
+/*    float: right;*/
+    background-color: white;
+    border: 1px solid #FFBFA9;
+    border-radius: 3px;
+    color: #222222;
+}
+
+.makeFont {
+    font-size: 13px;
+    margin-left: 5px;
+}
+.delete-card {
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+}

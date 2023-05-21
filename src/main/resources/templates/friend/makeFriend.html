@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MyVers</title>
+    <link href="/css/friend.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="login">
+        <div class="title">
+            <h1>친구 만들기</h1>
+        </div>
+        <form th:object="${friendForm}" method="post">
+            <div class="login-input">
+                <label th:for="name">이름 (1글자~8글자)</label>
+                <input type="text" placeholder="이지은" th:field="*{name}" th:class="${#fields.hasErrors('name')} ? 'fieldError' : ' '">
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
+            </div>
+            <div class="login-input">
+                <label th:for="age">나이 (10 ~ 99)</label>
+                <input type="number" min="10" max="99" placeholder="19" th:field="*{age}" th:class="${#fields.hasErrors('age')} ? 'fieldError' : ' '">
+                <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Incorrect date</p>
+            </div>
+            <div class="login-input">
+                <label th:for="gender">성별</label>
+                <div>
+                    <select class="opt" th:field="*{gender}">
+                        <option value="FEMALE">여자</option>
+                        <option value="MALE">남자</option>
+                    </select>
+                </div>
+                <p th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">Incorrect date</p>
+            </div>
+            <div class="login-input">
+                <label th:for="mbti">MBTI</label>
+                <div>
+                    <select class="opt" th:field="*{mbti}">
+                        <option value="ISTJ">ISTJ (청렴결백한 논리주의자)</option>
+                        <option value="ISFJ">ISFJ (용감한 수호자)</option>
+                        <option value="ESTJ">ESTJ (엄격한 관리자)</option>
+                        <option value="ESFJ">ESFJ (사교적인 외교관)</option>
+                        
+                        <option value="INTJ">INTJ (용의주도한 전략가)</option>
+                        <option value="INTP">INTP (논리적인 사색가)</option>
+                        <option value="ENTJ">ENTJ (대담한 통솔자)</option>
+                        <option value="ENTP">ENTP (뜨거운 논쟁을 즐기는 변론가)</option>
+                        
+                        <option value="ISTP">ISTP (만능 재주꾼)</option>
+                        <option value="ISFP">ISFP (호기심 많은 예술가)</option>
+                        <option value="ESTP">ESTP (모험을 즐기는 사업가)</option>
+                        <option value="ESFP">ESFP (자유로운 영혼의 연예인)</option>
+                        
+                        <option value="INFJ">INFJ (통찰력 있는 선지자)</option>
+                        <option value="INFP">INFP (중재자)</option>
+                        <option value="ENFJ">ENFJ (선도자)</option>
+                        <option value="ENFP">ENFP (재기발랄한 활동가)</option>
+                    </select>
+                </div>
+                <p th:if="${#fields.hasErrors('mbti')}" th:errors="*{mbti}">Incorrect date</p>
+            </div>
+            <div style="display:flex; justify-content: flex-end;">
+                <div class="login-input">
+                    <button type="submit" class="btn">만들기</button>
+                </div>
+                <div class="login-input">
+                    <a th:href="@{/friend/{id1}(id1 = ${memberId})}">
+                        <button type="button" class="btn">취소하기</button>
+                    </a>
+                </div>
+            </div>
+        </form>
+        <div style="clear:both;"></div>
+
+    </div>
+</body>
+
+</html>

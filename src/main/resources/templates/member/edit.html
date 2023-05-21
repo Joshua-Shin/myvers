@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MyVers</title>
+    <link href="/css/member.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="login">
+    <div class="title">
+        <h1><a href="index.html">MyVers</a></h1>
+    </div>
+    <form method="post" th:object="${memberModifyForm}">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+        </div>
+        <div class="login-input">
+            <label th:for="loginId">아이디 (8글자~16글자 & 영문 & 숫자)</label>
+            <input type="text" th:field="*{loginId}" th:readonly="true">
+        </div>
+        <div class="login-input">
+            <label th:for="password">기존비밀번호 (8글자~16글자)</label>
+            <input type="password" placeholder="********" th:field="*{password}" th:class="${#fields.hasErrors('password')} ? 'fieldError' : ' '">
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect date</p>
+        </div>
+        <div class="login-input">
+            <label th:for="newPassword">새 비밀번호 (8글자~16글자)</label>
+            <input type="password" placeholder="********" th:field="*{newPassword}" th:class="${#fields.hasErrors('newPassword')} ? 'fieldError' : ' '">
+            <p th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}">Incorrect date</p>
+        </div>
+        <div class="login-input">
+            <label th:for="newPasswordValid">새 비밀번호 확인 (8글자~16글자)</label>
+            <input type="password" placeholder="********" th:field="*{newPasswordValid}" th:class="${#fields.hasErrors('newPasswordValid')} ? 'fieldError' : ' '">
+            <p th:if="${#fields.hasErrors('newPasswordValid')}" th:errors="*{newPasswordValid}">Incorrect date</p>
+        </div>
+        <div class="login-input">
+            <label th:for="loginId">이름 (2글자~6글자)</label>
+            <input type="text" th:field ="*{name}" th:class="${#fields.hasErrors('name')} ? 'fieldError' : ' '">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
+        </div>
+        <div class="login-input">
+            <label th:for="loginId">이메일</label>
+            <input type="email" th:field="*{email}" th:class="${#fields.hasErrors('email')} ? 'fieldError' : ' '">
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect date</p>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <div class="login-input">
+                <button type="submit" class="btn-edit">수정</button>
+            </div>
+            <div class="login-input">
+                <a th:href="@{/member/{id}(id = ${memberId})}">
+                    <div class="btn-edit" style="font-size: 13.3px">취소</div>
+                </a>
+            </div>
+        </div>
+    </form>
+    <div style="clear:both;"></div>
+</div>
+</body>
+
+</html>

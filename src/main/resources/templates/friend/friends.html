@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MyVers</title>
+    <link href="/css/friend.css" rel="stylesheet">
+</head>
+
+<body>
+    <div style="display: flex; justify-content: flex-end;">
+        <div class="logout-div">
+            <a th:href="@{/member/{id}(id = ${memberId})}">
+                <button class="btn-logout">내 계정</button>
+            </a>
+        </div>
+        <div class="logout-div">
+            <a th:href="@{/logout}">
+                <button class="btn-logout">로그아웃</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="card-list">
+        <div class="card" th:each="friend : ${friends}">
+            <div class="btn-delete-p">
+                <a th:href="@{/friend/{id1}/{id2}/delete(id1 = ${memberId}, id2 = ${friend.id})}">
+                    <button class="btn-delete">X</button>
+                </a>
+            </div>
+            <div class="card-content">
+                <h2 th:text="${friend.name}">JENNY</h2>
+                <a th:href="@{/chat/{id1}/{id2}(id1 = ${memberId}, id2 = ${friend.id})}">
+                    <img class="friend-image" th:src="${friend.imageName}" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="btn-delete-p">
+                <button class="btn-delete"></button>
+            </div>
+            <div class="card-content">
+                <h2>새 친구</h2>
+                <a th:href="@{/friend/{id}/new(id = ${memberId})}">
+                    <img class="friend-image" src="/image/plus.jpeg" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

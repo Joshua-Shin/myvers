@@ -1,0 +1,21 @@
+spring:
+#  datasource:
+#    url: jdbc:h2:tcp://localhost/~/myvers
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#    properties:
+#      hibernate:
+#        #        show_sql: true
+#        format_sql: true
+
+chatgpt:
+  api-key: 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
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace

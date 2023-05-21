@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MyVers</title>
+    <link href="/css/friend.css" rel="stylesheet">
+</head>
+<body>
+    <h2>최대 친구 수를 초과하였습니다.</h2>
+<!--    {itemId}(itemId=${item.id})-->
+    <a th:href="@{/friend/{memberId}(memberId= ${memberId})}">다시 돌아가기</a>
+</body>
+</html>

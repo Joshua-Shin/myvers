@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MyVers</title>
+    <link href="/css/member.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="login">
+        <div class="title">
+            <h1><a href="/">MyVers</a></h1>
+        </div>
+        <form method="post" th:object="${loginForm}">
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+            </div>
+            <div class="login-input">
+                <input type="text" placeholder="아이디" name="loginId" th:class="${#fields.hasErrors('loginId')} ? 'fieldError' : ' '">
+            </div>
+            <p th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}" >Incorrect date</p>
+            <div class="login-input">
+                <input type="password" placeholder="비밀번호" name="password" th:class="${#fields.hasErrors('password')} ? 'fieldError' : ' '">
+            </div>
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" >Incorrect date</p>
+            <div class="login-input">
+                <button type="submit" class="btn">로그인</button>
+            </div>
+        </form>
+        <div style="clear:both;"></div>
+        <div class="login-bottom">
+<!--            <div>-->
+<!--                <a href="findPassword.html">비밀번호찾기</a>-->
+<!--            </div>-->
+            <div>
+                <a href="/member/new">회원가입</a>
+            </div>
+        </div>
+
+    </div>
+</body>
+<footer>
+    <div class="footer-bg">
+        <div class="footer-content">
+            <div class="footer-content-section">
+                <div class="icon">
+                    <i class="fab fa-github"></i>
+                </div>
+                <div>
+                    <a href="https://github.com/Joshua-Shin" style="color: #222222;">https://github.com/Joshua-Shin</a>
+                </div>
+            </div>
+            <div class="footer-content-section">
+                <div class="icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                    sjh910805@gmail.com
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</html>
