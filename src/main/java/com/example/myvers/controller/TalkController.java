@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.HttpClientErrorException;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,6 +47,7 @@ public class TalkController {
     @PostMapping("/chat/{memberId}/{friendId}")
     public String processChat(@PathVariable Long memberId, @PathVariable Long friendId, @Valid TalkForm talkForm, BindingResult bindingResult, Model model) {
         addAttributeToModel(memberId, friendId, model);
+        // 메시지 입력 안했을때 필드 오류
         if(bindingResult.hasErrors()) {
             return "chat/chatRoom";
         }
@@ -68,7 +70,23 @@ public class TalkController {
         List<Talk> talks = friend.getTalks();
 
 //        chatGPT 에게 응답 메시지 요청하기.
-        String receivedMessage = messageGeneratorService.receiveMessage(talks);
+        String receivedMessage;
+        try{
+            receivedMessage = messageGeneratorService.receiveMessage(talks);
+        } catch (HttpClientErrorException e) {
+            e.printStackTrace();
+//            model.addAttribute("chatgptError", TalkConst.CHATGPT_ERROR);
+            Talk talk2 = Talk.builder()
+                    .friend(friend)
+                    .speaker(Speaker.AI)
+                    .message(TalkConst.CHATGPT_ERROR)
+                    .createdDateTime(LocalDateTime.now())
+                    .time(Algorithm.generateTimeSentence(LocalDateTime.now()))
+                    .build();
+            talkService.save(talk2);
+
+            return "redirect:/chat/" + memberId + "/" + friendId;
+        }
 
         Talk talk2 = Talk.builder()
                 .friend(friend)

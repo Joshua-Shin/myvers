@@ -14,9 +14,11 @@
             <h2 class="list"><a th:href="@{/friend/{id}(id = ${memberId})}" style="color: white;">친구 목록</a></h2>
             <ul>
                 <li class="list-friend" th:each="f : ${friends}">
+                    <a th:href="@{/chat/{id1}/{id2}(id1 = ${memberId}, id2 = ${f.id})}">
                     <div>
                         <img class="list-img" th:src="${f.imageName}" alt="">
                     </div>
+                    </a>
                     <a th:href="@{/chat/{id1}/{id2}(id1 = ${memberId}, id2 = ${f.id})}">
                         <div class="list-name" th:text="${f.name}">이지은</div>
                     </a>
@@ -97,15 +99,24 @@
                 </div>
             </div>
             <div class="message">
-                <form id="myForm" method="post" class="message-trans" th:object="${talkForm}" onkeydown="disableEnter(event)">
-                    <div>
-                        <p th:if="${#fields.hasErrors('message')}" th:errors="*{message}">Incorrect date</p>
+                <form id="myForm" method="post" th:object="${talkForm}" onkeydown="disableEnter(event)">
+                    <div class="message-trans">
+                        <!-- 메시지 100개 넘었을때 글로벌 오류 -->
+                        <div th:if="${#fields.hasGlobalErrors()}">
+                            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+                        </div>
+                        <!-- 메시지 공백 or 100글자 넘겼을때 필드 오류 -->
+                        <div>
+                            <p th:if="${#fields.hasErrors('message')}" th:errors="*{message}">Incorrect date</p>
+                        </div>
                     </div>
-                    <div class="textarea-chat">
-                        <textarea cols="100" rows="1" placeholder="send message 100자 이내" th:field="*{message}" th:class="${#fields.hasErrors('message')} ? 'fieldError' : ' '"></textarea>
-                    </div>
-                    <div class="btn-chat">
-                        <button id="send-button" type="submit" class="btn" onclick="disableButton(event)">></button>
+                    <div class="message-trans">
+                        <div class="textarea-chat">
+                            <textarea cols="100" rows="1" placeholder="send message 100자 이내" th:field="*{message}" th:class="${#fields.hasErrors('message')} ? 'fieldError' : ' '"></textarea>
+                        </div>
+                        <div class="btn-chat">
+                            <button id="send-button" type="submit" class="btn" onclick="disableButton(event)">></button>
+                        </div>
                     </div>
                 </form>
                 <script>

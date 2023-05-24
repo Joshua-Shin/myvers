@@ -37,14 +37,18 @@ public class FriendController {
     // 친구 생성 화면.
     @GetMapping("/friend/{memberId}/new")
     public String createFriendForm(@PathVariable Long memberId, Model model) {
+        // FriendForm 빌더 패턴으로 만들고 생성자는 protected이지만, 같은 패지키 안에 있기 때문에 사용가능.
+        model.addAttribute("friendForm", new FriendForm());
+
         // 친구 생성 최대 수 검증
         try {
             validateCurrentFriendsNumber(memberId);
         } catch(IllegalStateException e) {
+            // 오류 페이지로 넘기지 않고 뭔가.. 모달창 띄우게 만들고 싶은데. .이거 자바스크립트 배우긴 배워야할듯..
+//            String message = "최대 친구 수를 초과하였습니다. 기존의 친구를 삭제하거나, 멤버쉽에 가입하여 최대 친구 수를 4명까지 늘릴 수 있습니다.";
+//            model.addAttribute("message", message);
             return "friend/makeFriendFail";
         }
-        // FriendForm 빌더 패턴으로 만들고 생성자는 protected이지만, 같은 패지키 안에 있기 때문에 사용가능.
-        model.addAttribute("friendForm", new FriendForm());
         return "friend/makeFriend";
     }
     // 친구 생성 최대 수 검증
