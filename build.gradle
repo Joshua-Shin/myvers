@@ -26,12 +26,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-devtools'
 
 	// 스프링 시큐리티
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	// chat-gpt // 외부 라이브러리
 	implementation 'io.github.flashvayne:chatgpt-spring-boot-starter:1.0.4'
 
-	// mariadb connector/J
+	// mariadb connector/J // 이게 컴파일도 겸하는걸까?
 	implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
 
 	compileOnly 'org.projectlombok:lombok'

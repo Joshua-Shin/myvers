@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class ChatgptMessageGeneratorService implements MessageGeneratorService{
     private final ChatgptService chatgptService;
 
-    public String receiveMessage(List<Talk> talks) {
+    public String receiveMessage(List<Talk> talks) { // 이런곳에서 엄청난 양의 쿼리가 나가겠네. talk.getXXX 이러면 talks의 개수만큼 쿼리가 나갈듯
         List<MultiChatMessage> messages = new ArrayList<>();
         for(Talk talk: talks) { // 모든 대화내용을 다 보낼 수는 없고, 최신 100개만 보내는게 나을듯.
             if(talk.getSpeaker() == Speaker.AI) {
