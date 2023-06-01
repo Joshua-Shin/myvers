@@ -29,7 +29,7 @@ public class FriendController {
     @GetMapping("/friend/{memberId}")
     public String friendList(@PathVariable Long memberId, Model model) {
         Member member = memberService.findOne(memberId);
-        List<Friend> friends = member.getFriends();
+        List<Friend> friends = member.getFriends(); // 이게 프록시로 들어올테니까.
         model.addAttribute("friends", friends);
         return "friend/friends";
     }
