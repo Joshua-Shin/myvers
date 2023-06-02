@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class FriendService {
     private final FriendRepository friendRepository;
     private final TalkService talkService;
-    // 친구 생성
+    /** 친구 생성 */
     @Transactional
     public Long generateFriend(Friend friend) {
         // AI 역할과 정보 등록

@@ -27,6 +27,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    // 회원 가입 폼
     @GetMapping("/member/new")
     public String signupForm(MemberForm memberForm, BindingResult bindingResult) {
         // 회원 정원 초과 검사
@@ -36,6 +37,7 @@ public class MemberController {
         return "member/join";
     }
 
+    // 회원 가입
     @PostMapping("/member/new")
     public String signup(@Valid @ModelAttribute MemberForm memberForm, BindingResult bindingResult) {
 

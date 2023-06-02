@@ -38,6 +38,8 @@ public class Member {
 
     private LocalDateTime createdDate;
 
+    private Long talkCount; // 친구 삭제 시에도 전체 메시지 수가 변동 없음.
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Friend> friends = new ArrayList<>();
 
@@ -50,6 +52,7 @@ public class Member {
         this.email = email;
         this.grade = grade;
         this.createdDate = createdDate;
+        this.talkCount = 1L;
     }
 
 

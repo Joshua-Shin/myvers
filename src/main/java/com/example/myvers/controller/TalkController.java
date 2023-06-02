@@ -47,12 +47,12 @@ public class TalkController {
     @PostMapping("/chat/{memberId}/{friendId}")
     public String processChat(@PathVariable Long memberId, @PathVariable Long friendId, @Valid TalkForm talkForm, BindingResult bindingResult, Model model) {
         addAttributeToModel(memberId, friendId, model);
-        // 메시지 입력 안했을때 필드 오류
+        /** 메시지 입력 안했을때 필드 오류 */
         if(bindingResult.hasErrors()) {
             return "chat/chatRoom";
         }
-        // 회원당 톡 개수 초과 검사 현재 100개로 할당.
-        if(findTotalTalkCount(memberId) >= TalkConst.MAXIMUM_NUMBER) {
+        /** 회원당 톡 개수 초과 검사 현재 100개로 할당. */
+        if(memberService.findOne(memberId).getTalkCount() >= TalkConst.MAXIMUM_NUMBER) {
             bindingResult.reject("exceed.number.talk", TalkConst.EXCEED_MAXIMUM_NUMBER);
             return "chat/chatRoom";
         }
@@ -69,13 +69,12 @@ public class TalkController {
 
         List<Talk> talks = friend.getTalks();
 
-//        chatGPT 에게 응답 메시지 요청하기.
+        /** chatGPT api 요청 에러 발생시 임시 메시지 전달. */
         String receivedMessage;
         try{
             receivedMessage = messageGeneratorService.receiveMessage(talks);
         } catch (HttpClientErrorException e) {
             e.printStackTrace();
-//            model.addAttribute("chatgptError", TalkConst.CHATGPT_ERROR);
             Talk talk2 = Talk.builder()
                     .friend(friend)
                     .speaker(Speaker.AI)
@@ -100,16 +99,6 @@ public class TalkController {
         return "redirect:/chat/" + memberId + "/" + friendId;
     }
 
-    private long findTotalTalkCount(Long memberId) {
-        Member member = memberService.findOne(memberId);
-        List<Friend> friends = member.getFriends();
-        long totalTalkCount = 0L;
-        for (Friend friend : friends) {
-            totalTalkCount += friend.getTalks().size();
-        }
-        return totalTalkCount;
-    }
-
     private void addAttributeToModel(Long memberId, Long friendId, Model model) {
         Member member = memberService.findOne(memberId);
         List<Friend> friends = member.getFriends();
@@ -118,53 +107,6 @@ public class TalkController {
         List<Talk> talks = friend.getTalks();
         model.addAttribute("talks", talks);
         model.addAttribute("friend", friend);
-    }
-
-//    @PostMapping("/chat/{memberId}/{friendId}")
-    @ResponseBody
-    public void async(@PathVariable Long memberId, @PathVariable Long friendId, String message, HttpServletResponse response) throws Exception {
-        CompletableFuture.runAsync(() -> {
-            // 첫번째 작업 수행
-            Friend friend = friendService.findById(friendId);
-
-            Talk talk = Talk.builder()
-                    .friend(friend)
-                    .speaker(Speaker.HUMAN)
-                    .message(message)
-                    .createdDateTime(LocalDateTime.now())
-                    .time(Algorithm.generateTimeSentence(LocalDateTime.now()))
-                    .build();
-            talkService.save(talk);
-
-            try {
-                // 첫번째 리다이렉트 수행
-                response.sendRedirect("/chat/" + memberId + "/" + friendId);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-        }).thenRun(() -> {
-            // 두번째 작업 수행
-            Friend friend = friendService.findById(friendId);
-            List<Talk> talks = friend.getTalks();
-            String receivedMessage = messageGeneratorService.receiveMessage(talks);
-
-            Talk talk2 = Talk.builder()
-                    .friend(friend)
-                    .speaker(Speaker.AI)
-                    .message(receivedMessage)
-                    .createdDateTime(LocalDateTime.now())
-                    .time(Algorithm.generateTimeSentence(LocalDateTime.now()))
-                    .build();
-            talkService.save(talk2);
-
-            try {
-                // 두번째 리다이렉트 수행
-                response.sendRedirect("/chat/" + memberId + "/" + friendId);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
     }
 
 }

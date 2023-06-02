@@ -1,5 +1,6 @@
 package com.example.myvers.controller;
 
+import com.example.myvers.configuration.FriendConst;
 import com.example.myvers.domain.Friend;
 import com.example.myvers.domain.Gender;
 import com.example.myvers.domain.Grade;
@@ -25,7 +26,7 @@ public class FriendController {
     private final FriendService friendService;
     private final MemberService memberService;
 
-    // 로그인후 첫 화면, 친구 전체 목록.
+    /** 로그인후 첫 화면, 친구 전체 목록.*/
     @GetMapping("/friend/{memberId}")
     public String friendList(@PathVariable Long memberId, Model model) {
         Member member = memberService.findOne(memberId);
@@ -34,24 +35,20 @@ public class FriendController {
         return "friend/friends";
     }
 
-    // 친구 생성 화면.
+    /** 친구 생성 화면. */
     @GetMapping("/friend/{memberId}/new")
     public String createFriendForm(@PathVariable Long memberId, Model model) {
         // FriendForm 빌더 패턴으로 만들고 생성자는 protected이지만, 같은 패지키 안에 있기 때문에 사용가능.
         model.addAttribute("friendForm", new FriendForm());
 
-        // 친구 생성 최대 수 검증
+        /** 친구 생성 최대 수 검증 */
         try {
             validateCurrentFriendsNumber(memberId);
         } catch(IllegalStateException e) {
-            // 오류 페이지로 넘기지 않고 뭔가.. 모달창 띄우게 만들고 싶은데. .이거 자바스크립트 배우긴 배워야할듯..
-//            String message = "최대 친구 수를 초과하였습니다. 기존의 친구를 삭제하거나, 멤버쉽에 가입하여 최대 친구 수를 4명까지 늘릴 수 있습니다.";
-//            model.addAttribute("message", message);
             return "friend/makeFriendFail";
         }
         return "friend/makeFriend";
     }
-    // 친구 생성 최대 수 검증
     private void validateCurrentFriendsNumber(Long memberId) {
         Member member = memberService.findOne(memberId);
         if(member.getGrade() == Grade.NORMAL && member.getFriends().size() >= 2) {
@@ -62,7 +59,7 @@ public class FriendController {
         }
     }
 
-    // 친구 생성
+    /** 친구 생성 */
     @PostMapping("/friend/{memberId}/new")
     public String createFriend(@PathVariable Long memberId, @Valid @ModelAttribute FriendForm friendForm, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
@@ -89,17 +86,23 @@ public class FriendController {
     private String generateRandomImageName(Gender gender, Member member) {
         Random random = new Random();
         String imageName;
+        int imageNum = random.nextInt(10) + 1; // 1~10 까지 랜덤값 생성
         do {
-            int imageNum = random.nextInt(10) + 1; // 1~10 까지 랜덤값 생성
             if(gender == Gender.MALE) {
                 imageName = "/image/m" + imageNum+".jpeg";
             } else {
                 imageName = "/image/f" + imageNum+".jpeg";
             }
-        } while(isFail(member, imageName));
+            imageNum++;
+            if(imageNum == FriendConst.MAXIMUM_NUMBER + 1) {
+                imageNum = 1;
+            }
+
+          /** 친구 이미지 중복 검사 */
+        } while(isDuplicate(member, imageName));
         return imageName;
     }
-    private boolean isFail(Member member, String imageName) {
+    private boolean isDuplicate(Member member, String imageName) {
         List<Friend> friends = member.getFriends();
         for (Friend saveFriend : friends) {
             if (saveFriend.getImageName() != null && saveFriend.getImageName().equals(imageName)) {
@@ -110,7 +113,7 @@ public class FriendController {
     }
 
 
-    // 친구 삭제
+    /** 친구 삭제 폼 */
     @GetMapping("/friend/{memberId}/{friendId}/delete")
     public String friendDeleteForm(@PathVariable Long memberId, @PathVariable Long friendId, Model model) {
         addAttributeToModel(friendId, model);
@@ -118,14 +121,14 @@ public class FriendController {
         return "friend/delete";
     }
 
-
+    /** 친구 삭제 */
     @PostMapping("/friend/{memberId}/{friendId}/delete")
     public String friendDelete(@PathVariable Long memberId, @PathVariable Long friendId, @Valid FriendDeleteForm friendDeleteForm, BindingResult bindingResult, Model model) {
         addAttributeToModel(friendId, model);
         if(bindingResult.hasErrors()) {
             return "friend/delete";
         }
-        // 비밀번호 검사
+        /** 비밀번호 검사 */
         Member member = memberService.findOne(memberId);
         if(!member.getPassword().equals(friendDeleteForm.getPassword())) {
             bindingResult.reject("password.notSame.originPassword", "비밀번호가 틀렸습니다.");
