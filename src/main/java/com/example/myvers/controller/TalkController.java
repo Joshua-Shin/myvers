@@ -1,7 +1,6 @@
 package com.example.myvers.controller;
 
 import com.example.myvers.configuration.Algorithm;
-import com.example.myvers.configuration.MemberConst;
 import com.example.myvers.configuration.TalkConst;
 import com.example.myvers.domain.Friend;
 import com.example.myvers.domain.Member;
@@ -11,11 +10,8 @@ import com.example.myvers.service.FriendService;
 import com.example.myvers.service.MemberService;
 import com.example.myvers.service.messagegenerator.MessageGeneratorService;
 import com.example.myvers.service.TalkService;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +21,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpClientErrorException;
 
 @Controller
@@ -37,6 +32,7 @@ public class TalkController {
     private final TalkService talkService;
     private final MessageGeneratorService messageGeneratorService;
 
+    /** 대화 방 */
     @GetMapping("/chat/{memberId}/{friendId}")
     public String showChatRoom(@PathVariable Long memberId, @PathVariable Long friendId, Model model) {
         addAttributeToModel(memberId, friendId, model);
@@ -44,6 +40,7 @@ public class TalkController {
         return "chat/chatRoom";
     }
 
+    /** 메시지 보내기 */
     @PostMapping("/chat/{memberId}/{friendId}")
     public String processChat(@PathVariable Long memberId, @PathVariable Long friendId, @Valid TalkForm talkForm, BindingResult bindingResult, Model model) {
         addAttributeToModel(memberId, friendId, model);
@@ -51,12 +48,14 @@ public class TalkController {
         if(bindingResult.hasErrors()) {
             return "chat/chatRoom";
         }
+        Member member = memberService.findOne(memberId);
         /** 회원당 톡 개수 초과 검사 현재 100개로 할당. */
-        if(memberService.findOne(memberId).getTalkCount() >= TalkConst.MAXIMUM_NUMBER) {
+        if(member.getTalkCount() >= TalkConst.MAXIMUM_NUMBER) {
             bindingResult.reject("exceed.number.talk", TalkConst.EXCEED_MAXIMUM_NUMBER);
             return "chat/chatRoom";
         }
 
+        // 사용자가 입력한 메시지 저장
         Friend friend = friendService.findById(friendId);
         Talk talk = Talk.builder()
                 .friend(friend)
@@ -69,7 +68,7 @@ public class TalkController {
 
         List<Talk> talks = friend.getTalks();
 
-        /** chatGPT api 요청 에러 발생시 임시 메시지 전달. */
+        /** chatGPT api 요청 에러 발생시 임시 메시지 저장 및 전달. */
         String receivedMessage;
         try{
             receivedMessage = messageGeneratorService.receiveMessage(talks);
@@ -87,6 +86,7 @@ public class TalkController {
             return "redirect:/chat/" + memberId + "/" + friendId;
         }
 
+        // chatGPT가 전달한 메시지 저장.
         Talk talk2 = Talk.builder()
                 .friend(friend)
                 .speaker(Speaker.AI)
@@ -95,6 +95,8 @@ public class TalkController {
                 .time(Algorithm.generateTimeSentence(LocalDateTime.now()))
                 .build();
         talkService.save(talk2);
+
+        member.addTalkCount();
 
         return "redirect:/chat/" + memberId + "/" + friendId;
     }

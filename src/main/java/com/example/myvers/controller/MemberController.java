@@ -27,7 +27,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    // 회원 가입 폼
+    /** 회원 가입 폼 */
     @GetMapping("/member/new")
     public String signupForm(MemberForm memberForm, BindingResult bindingResult) {
         // 회원 정원 초과 검사
@@ -37,7 +37,7 @@ public class MemberController {
         return "member/join";
     }
 
-    // 회원 가입
+    /** 회원 가입 */
     @PostMapping("/member/new")
     public String signup(@Valid @ModelAttribute MemberForm memberForm, BindingResult bindingResult) {
 
@@ -80,7 +80,7 @@ public class MemberController {
         return "redirect:/";
     }
 
-    // 회원 정보 조회
+    /** 회원 정보 조회 */
     @GetMapping("/member/{memberId}")
     public String info(@PathVariable Long memberId, Model model) {
         Member member = memberService.findOne(memberId);
@@ -90,7 +90,7 @@ public class MemberController {
         return "member/memberInfo";
     }
 
-    // 회원 수정
+    /** 회원 정보 수정 폼 */
     @GetMapping("/member/{memberId}/edit")
     public String editForm(@PathVariable Long memberId, Model model) {
         Member member = memberService.findOne(memberId);
@@ -103,6 +103,7 @@ public class MemberController {
         return "member/edit";
     }
 
+    /** 회원 정보 수정 */
     @PostMapping("/member/{memberId}/edit")
     public String edit(@PathVariable Long memberId, @Valid @ModelAttribute MemberModifyForm memberModifyForm, BindingResult bindingResult) {
 
@@ -126,7 +127,7 @@ public class MemberController {
         return "redirect:/member/" + memberId;
     }
 
-    // 전체 멤버 조회. admin 페이지
+    /** 전체 멤버 조회. admin 페이지 */
     @GetMapping("/members")
     @ResponseBody
     public List<ResponseMemberForm> members() {

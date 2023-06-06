@@ -5,8 +5,10 @@ import com.example.myvers.domain.Friend;
 import com.example.myvers.domain.Speaker;
 import com.example.myvers.domain.Talk;
 import com.example.myvers.repository.FriendRepository;
+import com.example.myvers.service.messagegenerator.MessageGeneratorService;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class FriendService {
     private final FriendRepository friendRepository;
     private final TalkService talkService;
+    private final MessageGeneratorService messageGeneratorService;
     /** 친구 생성 */
     @Transactional
     public Long generateFriend(Friend friend) {
@@ -130,6 +133,7 @@ public class FriendService {
                 + "' and your MBTI is '" + mbti
                 + "' and your birth date is '" + birthday
                 + " You are an ordinary person born in Korea. ";
+//                + "Now that I've given you the rules and information, this roleplay is about to begin with your first greeting. ";
 
         return promptVer4;
     }
@@ -146,6 +150,8 @@ public class FriendService {
     }
 
     private String generateFirstMessage(Friend friend) {
+//        List<Talk> talks = friend.getTalks();
+//        return messageGeneratorService.receiveMessage(talks);
         String name = friend.getName();
         String userName = friend.getMember().getName();
         return "반가워 " + userName + "아! 내 이름은 " + name +"이야! 앞으로 잘 부탁해!!";

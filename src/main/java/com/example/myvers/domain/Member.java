@@ -55,11 +55,13 @@ public class Member {
         this.talkCount = 1L;
     }
 
-
-
     public void change(String password, String name, String email) {
         this.password = password;
         this.name = name;
         this.email = email;
+    }
+
+    public void addTalkCount() {
+        talkCount++;
     }
 }

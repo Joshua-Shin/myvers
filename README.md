@@ -1,9 +1,10 @@
 # MyVers
-#### ChatGPT를 활용한 가상친구와 채팅 웹 애플리케이션 개발 프로젝트 <br><br>
+#### ChatGPT를 활용한 가상친구와 채팅 웹 애플리케이션 개발 프로젝트
+#### http://ec2-13-124-42-243.ap-northeast-2.compute.amazonaws.com:8080/
+<br><br>
 ![](src/main/resources/readme/makeFriend.png) <br><br>
 ![](src/main/resources/readme/chat.png)
 
-[//]: # (http://localhost:8080/)
 
 -------------------
 ### 개요
@@ -11,7 +12,7 @@
 - ChatGPT API를 활용한 가상 친구와의 채팅 서비스 구현.
 - Spring MVC 기반의 백엔드 서버 구축.
 - 데이터 모델링을 비롯 JPA ORM 기술을 사용한 도메인 개발.
-- AWS 기반의 CI/CD 무중단 배포 인프라 구축 (예정)
+- AWS EC2, RDS, S3를 통해 배포, 현재 서비스 운영중
 
 
 ### 목차
@@ -21,6 +22,7 @@
   * [문제점 해결](#문제점-해결)
 - [개발 환경](#개발-환경)
   * [백엔드](#백엔드)
+  * [DevOps](#DevOps)
   * [프론트엔드](#프론트엔드)
   * [기타 주요 라이브러리](#기타-라이브러리)
   * [Tool](#Tool)
@@ -68,6 +70,10 @@
 - JPA, H2 Database
 - Junit5
 - Gradle (7.6.1)
+
+#### DevOps
+- AWS EC2(Amazon Linux 2023) 
+- AWS RDS(MariaDB)
 
 #### 프론트엔드
 - Html/Css, Javascript
