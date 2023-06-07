@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
@@ -130,11 +132,11 @@ public class MemberController {
     /** 전체 멤버 조회. admin 페이지 */
     @GetMapping("/members")
     @ResponseBody
-    public List<ResponseMemberForm> members() {
-        List<ResponseMemberForm> responseMemberFormList = new ArrayList<>();
+    public Result members() {
+        List<MemberDto> collect = new ArrayList<>();
         List<Member> members = memberService.findAll();
         for (Member member : members) {
-            ResponseMemberForm responseMemberForm = ResponseMemberForm.builder()
+            MemberDto memberDto = MemberDto.builder()
                     .loginId(member.getLoginId())
                     .id(member.getId())
                     .email(member.getEmail())
@@ -146,11 +148,16 @@ public class MemberController {
             List<Friend> friends = member.getFriends();
             for (Friend friend : friends) {
                 Pair<Long, String> pair = Pair.of(friend.getId(), friend.getName());
-                responseMemberForm.getFriends().add(pair);
+                memberDto.getFriends().add(pair);
             }
-            responseMemberFormList.add(responseMemberForm);
+            collect.add(memberDto);
         }
-        return responseMemberFormList;
+        return new Result(collect);
+    }
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
     }
 
 }

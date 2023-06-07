@@ -12,7 +12,7 @@ import org.springframework.data.util.Pair;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ResponseMemberForm {
+public class MemberDto {
 
     private Long id;
 
@@ -31,8 +31,8 @@ public class ResponseMemberForm {
     private final List<Pair<Long, String>> friends = new ArrayList<>(); // friendId, friendName
 
     @Builder
-    public ResponseMemberForm(Long id, String loginId, String password, String name, String email, Grade grade,
-                              LocalDateTime createdDate) {
+    public MemberDto(Long id, String loginId, String password, String name, String email, Grade grade,
+                     LocalDateTime createdDate) {
         this.id = id;
         this.loginId = loginId;
         this.password = password;

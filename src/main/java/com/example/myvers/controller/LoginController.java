@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class LoginController {
     private final LoginService loginService;
 
+    /** 로그인 폼 */
     @GetMapping("/login")
     public String home(LoginForm loginForm) {
         return "member/index";
     }
 
+    /** 로그인 */
     @PostMapping("/login")
     public String login(@Valid LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request) {
         if(bindingResult.hasErrors()) {
@@ -43,6 +45,7 @@ public class LoginController {
         return "redirect:/friend/" + loginMember.getId();
     }
 
+    /** 로그 아웃 */
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);

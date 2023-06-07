@@ -31,7 +31,10 @@ dependencies {
 	// chat-gpt // 외부 라이브러리
 	implementation 'io.github.flashvayne:chatgpt-spring-boot-starter:1.0.4'
 
-	// mariadb connector/J // 이게 컴파일도 겸하는걸까?
+	// p6spy // 외부 라이브러리
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
+
+	// mariadb connector/J
 	implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
 
 	compileOnly 'org.projectlombok:lombok'

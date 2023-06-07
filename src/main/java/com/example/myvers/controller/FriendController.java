@@ -103,13 +103,8 @@ public class FriendController {
         return imageName;
     }
     private boolean isDuplicate(Member member, String imageName) {
-        List<Friend> friends = member.getFriends();
-        for (Friend saveFriend : friends) {
-            if (saveFriend.getImageName() != null && saveFriend.getImageName().equals(imageName)) {
-                return true;
-            }
-        }
-        return false;
+        return member.getFriends().stream()
+                .anyMatch(saveFriend -> saveFriend.getImageName() != null && saveFriend.getImageName().equals(imageName));
     }
 
 
