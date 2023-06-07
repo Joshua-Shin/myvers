@@ -1,7 +1,6 @@
 # MyVers
 #### ChatGPT를 활용한 가상친구와 채팅 웹 애플리케이션 개발 프로젝트
 #### http://ec2-13-124-42-243.ap-northeast-2.compute.amazonaws.com:8080/ (PC화면 권장)
-<br><br>
 ![](src/main/resources/readme/loginPage.png) <br><br>
 ![](src/main/resources/readme/makeFriend.png) <br><br>
 ![](src/main/resources/readme/friendsPage.png) <br><br>
