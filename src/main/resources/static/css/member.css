@@ -151,7 +151,7 @@ i {
 }
 
 .footer-content {
-    width:300px;
+    width:400px;
     margin: auto;
     margin-top:30px;
 /*    text-align: center;*/
@@ -161,7 +161,7 @@ i {
     display: flex;
     padding: 5px;
     margin-top: 8px;
-    margin-left: 15px;
+    margin-left: 40px;
     color: #222222;
 }
 

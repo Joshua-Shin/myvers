@@ -242,3 +242,17 @@ label {
     display: flex;
     justify-content: center;
 }
+.fail-container {
+    width: 50%;
+    margin: auto;
+/*    border : 1px solid black;*/
+    text-align: center;
+    padding-top: 30px;
+}
+
+.sorry {
+    width : 600px;
+/*    height: 242px;*/
+/*    border: none;*/
+    object-fit: cover;
+}

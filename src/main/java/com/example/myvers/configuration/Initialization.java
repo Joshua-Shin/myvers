@@ -58,7 +58,7 @@ public class Initialization {
                 .build();
         memberService.join(member2);
 
-        // 회원 98개 추가.
+        // 회원 98개 추가. // 이런건 테스트 코드에 넣어야지..
 //        for(int i = 0; i < 98; i++) {
 //            Member member3 = Member.builder()
 //                    .grade(Grade.NORMAL)

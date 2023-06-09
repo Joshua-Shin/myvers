@@ -5,10 +5,38 @@
     <meta charset="UTF-8">
     <title>MyVers</title>
     <link href="/css/friend.css" rel="stylesheet">
+    <link href="/css/member.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <h2>최대 친구 수를 초과하였습니다.</h2>
-<!--    {itemId}(itemId=${item.id})-->
-    <a th:href="@{/friend/{memberId}(memberId= ${memberId})}">다시 돌아가기</a>
+    <div class="fail-container">
+        <img class="sorry" src="/image/sorry2.png">
+        <h3 style="color:#222222">최대 친구 수를 초과하였습니다 ㅠㅠ</h3>
+        <a th:href="@{/friend/{memberId}(memberId= ${memberId})}">
+            <button class="btn7">확인</button>
+        </a>
+    </div>
 </body>
+<footer>
+    <div class="footer-bg">
+        <div class="footer-content">
+            <div class="footer-content-section">
+                <div class="icon">
+                    <i class="fab fa-github"></i>
+                </div>
+                <div>
+                    <a href="https://github.com/Joshua-Shin/myvers" style="color: #222222;">https://github.com/Joshua-Shin/myvers</a>
+                </div>
+            </div>
+            <div class="footer-content-section">
+                <div class="icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                    sjh910805@gmail.com
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 </html>
