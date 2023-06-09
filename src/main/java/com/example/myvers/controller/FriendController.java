@@ -32,7 +32,6 @@ public class FriendController {
         Member member = memberService.findOne(memberId);
         List<Friend> friends = member.getFriends(); // 이게 프록시로 들어올테니까..
         model.addAttribute("friends", friends); // 프록시 상태로 view로 넘겨버리네. 그러면 view쪽에서 friend.getName() 할떄마다 쿼리 나가는거야.
-        // fit하게 필요한 필드들만 담은 FriendDto 만들어서 List<FriendDto>를 model에 담아서 view에 넘기면 되잖아.
         // 여기도 friends for문 돌릴떄, 페치조인해서 한번에 가져오게 해야돼.
         return "friend/friends";
     }

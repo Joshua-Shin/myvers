@@ -132,7 +132,7 @@ public class MemberController {
     /** 전체 멤버 조회. admin 페이지 */
     @GetMapping("/members")
     @ResponseBody
-    public Result members() {
+    public Result<List<MemberDto>> members() {
         List<MemberDto> collect = new ArrayList<>();
         List<Member> members = memberService.findAll();
         for (Member member : members) {
@@ -152,7 +152,7 @@ public class MemberController {
             }
             collect.add(memberDto);
         }
-        return new Result(collect);
+        return new Result<>(collect);
     }
     @Data
     @AllArgsConstructor

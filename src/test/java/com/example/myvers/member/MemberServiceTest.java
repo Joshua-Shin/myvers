@@ -2,8 +2,10 @@ package com.example.myvers.member;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.example.myvers.domain.Friend;
 import com.example.myvers.domain.Member;
 import com.example.myvers.repository.MemberRepository;
+import com.example.myvers.service.FriendService;
 import com.example.myvers.service.MemberService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +23,8 @@ class MemberServiceTest {
     @Autowired
     MemberRepository memberRepository;
 
+
+
     @Test
     @DisplayName("회원가입")
     public void join() throws Exception {
@@ -35,5 +39,6 @@ class MemberServiceTest {
         //then
         assertThat(findMember).isEqualTo(member);
     }
+
 
 }
