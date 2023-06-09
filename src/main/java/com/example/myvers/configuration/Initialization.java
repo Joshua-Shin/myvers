@@ -33,7 +33,7 @@ public class Initialization {
                 .build();
         memberService.join(member);
 
-        String [] name = {"채원", "이지은", "데이나", "소옥", "허윤진", "모현민", "김유정", "장원영", "신예은", "제니"};
+        String [] name = {"채원", "이지은", "데이나", "소옥", "허윤진", "모현민", "김유정", "카리나", "사나", "지수"};
         for(int i = 1; i <= 10; i++) {
             Friend friend = Friend.builder()
                     .imageName("/image/f" + i + ".jpeg")
