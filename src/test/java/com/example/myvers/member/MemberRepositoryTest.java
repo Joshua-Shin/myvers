@@ -108,6 +108,13 @@ class MemberRepositoryTest {
                 .build();
 
         //when
+//        em.persist(member);
+//        em.persist(friendA);
+//        em.persist(friendB);
+//        em.persist(friendC);
+//        em.persist(friendD);
+//        em.persist(friendE);
+
         memberRepository.save(member);
         friendRepository.save(friendA);
         friendRepository.save(friendB);
